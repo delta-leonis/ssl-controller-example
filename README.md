@@ -6,7 +6,7 @@
 
 You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
 /[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html))
-to run `zosma`.
+to run `ssl-controller-example`.
 
 ## Copyright
 
