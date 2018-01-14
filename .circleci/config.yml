@@ -3,17 +3,16 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+general:
+  branches:
+    ignore:
+     - gh-pages
 jobs:
   build:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
       
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
     working_directory: ~/repo
 
     environment:
@@ -35,10 +34,19 @@ jobs:
 
       - save_cache:
           paths:
-            - ~/.gradle
+            - ~/.m2
           key: v1-dependencies-{{ checksum "build.gradle" }}
         
       # run tests!
       - run: gradle test
-
-
+      
+      # compile javadoc 
+      - run: gradle javadoc
+      
+      # Deploy javadoc if on master
+      - deploy:
+          name: Deploy javadoc
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+               .circleci/deploy-ghpages.sh
+            fi
