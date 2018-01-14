@@ -5,7 +5,7 @@ apply plugin: 'java'
 group 'io.leonis'
 version '0.0.1'
 archivesBaseName = "ssl-controller-example"
-rootProject.description = ' Reference implementation to control small size league robots with an xbox controller.'
+rootProject.description = 'Reference implementation for controlling Small Size League robots with an Xbox controller.'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
