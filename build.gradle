@@ -27,6 +27,7 @@ dependencies {
     // delta-leonis
     compile 'io.leonis:subra-protocol:0.0.1'
     compile 'io.leonis:subra:0.0.2'
+    compile 'io.leonis:zosma:0.0.5'
     compile 'io.leonis:torch:0.0.1'
 
     // math
