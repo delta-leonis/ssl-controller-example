@@ -8,6 +8,21 @@ You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
 /[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html))
 to run `subra-examples`.
 
+## Configuration
+Most examples accept arguments in the following format: `<property>:<value>`. For example setting
+the ip would be `ip:123.123.123.123`.
+
+## Controller Example
+The class `ControllerExample` can be found in the example package. Currently the controller mapping
+is hardcoded in the `main`-method of the example, which binds robot 1 and 2 of the blue team to the
+first controller that is found.
+
+### settings
+| Property  | description  | default |
+|---|---|---|
+| Ip   | multicast ip  | `224.0.0.1` |
+| Port  | multicast port  | `10001` |
+
 ## Copyright
 
 This project is licensed under the AGPL version 3 license (see LICENSE).
