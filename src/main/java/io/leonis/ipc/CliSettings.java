@@ -25,8 +25,8 @@ public final class CliSettings implements Function<String[], Map<String, String>
 
   public CliSettings() {
     this(ImmutableMap.of(
-      "port", "1234",
-      "ip", "localhost"));
+      "port", "10010",
+      "ip", "255.255.255.255"));
   }
 
   /**
