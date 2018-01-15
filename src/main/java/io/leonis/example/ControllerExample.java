@@ -30,7 +30,7 @@ public class ControllerExample {
    * Constructs a new ControllerExample which submits {@link io.leonis.subra.protocol.Robot generated
    * commands} to multicast on the supplied ip and port.
    *
-   * @param ip   The IP of the multicast destination as a {@link String}
+   * @param ip The IP of the multicast destination as a {@link String}
    * @param port The port of the multicast destination as an integer.
    */
   public ControllerExample(final String ip, final int port) throws IOException {

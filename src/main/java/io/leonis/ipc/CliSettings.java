@@ -25,8 +25,8 @@ public final class CliSettings implements Function<String[], Map<String, String>
 
   public CliSettings() {
     this(ImmutableMap.of(
-      "port", "10010",
-      "ip", "255.255.255.255"));
+        "port", "10010",
+        "ip", "255.255.255.255"));
   }
 
   /**
@@ -36,10 +36,10 @@ public final class CliSettings implements Function<String[], Map<String, String>
   @Override
   public Map<String, String> apply(final String[] args) {
     Map<String, String> input = Stream.of(args)
-      .map(arg -> arg.split(":"))
-      .collect(Collectors.toMap(strings -> strings[0], strings -> strings[1]));
+        .map(arg -> arg.split(":"))
+        .collect(Collectors.toMap(strings -> strings[0], strings -> strings[1]));
     return this.defaults.entrySet().stream().collect(Collectors.toMap(
-      Entry::getKey,
-      def -> input.getOrDefault(def.getKey(), def.getValue())));
+        Entry::getKey,
+        def -> input.getOrDefault(def.getKey(), def.getValue())));
   }
 }
