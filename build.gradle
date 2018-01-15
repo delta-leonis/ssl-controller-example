@@ -4,7 +4,7 @@ apply plugin: 'java'
 
 group 'io.leonis'
 version '0.0.1'
-archivesBaseName = "ssl-controller-example"
+archivesBaseName = "subra-examples"
 rootProject.description = 'Reference implementation for controlling Small Size League robots with an Xbox controller.'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -26,8 +26,8 @@ javadoc {
 dependencies {
     // delta-leonis
     compile 'io.leonis:subra-protocol:0.0.1'
-    compile 'io.leonis:subra:0.0.3'
-    compile 'io.leonis:zosma:0.0.5'
+    compile 'io.leonis:subra:0.0.4'
+    compile 'io.leonis:zosma:0.0.6'
     compile 'io.leonis:torch:0.0.1'
 
     // math
