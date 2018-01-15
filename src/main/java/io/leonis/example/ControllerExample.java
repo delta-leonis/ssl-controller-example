@@ -1,13 +1,13 @@
 package io.leonis.example;
 
 import com.google.common.collect.*;
+import io.leonis.game.engine.ControllerStrategySupplier;
 import io.leonis.ipc.CliSettings;
 import io.leonis.subra.game.data.Player.PlayerIdentity;
 import io.leonis.subra.game.data.*;
 import io.leonis.subra.ipc.network.StrategyMulticastSubscriber;
 import io.leonis.subra.ipc.peripheral.*;
 import io.leonis.subra.ipc.peripheral.JamepadController.JamepadControllerIdentity;
-import io.leonis.subra.math.PlayerCommandRing;
 import io.leonis.zosma.ipc.ip.MulticastSubscriber;
 import io.leonis.zosma.ipc.peripheral.Controller.MappingSupplier;
 import java.io.IOException;
@@ -16,8 +16,7 @@ import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Function;
-import java.util.stream.*;
-import lombok.Value;
+import java.util.stream.Collectors;
 import reactor.core.publisher.Flux;
 
 /**
@@ -71,30 +70,5 @@ public class ControllerExample {
   public static void main(final String[] args) throws IOException {
     final Map<String, String> params = new CliSettings().apply(args);
     new ControllerExample(params.get("ip"), Integer.parseInt(params.get("port")));
-  }
-
-  @Value
-  public static class ControllerStrategySupplier implements Strategy.Supplier, PlayerCommandRing {
-    private final Map<PlayerIdentity, List<PlayerCommand>> map;
-
-    @Override
-    public Map<PlayerIdentity, PlayerCommand> getStrategy() {
-      return this.map.entrySet().stream()
-          .collect(Collectors.toMap(
-              Entry::getKey,
-              entry -> entry.getValue().stream()
-                  .reduce(this::add)
-                  .map(value ->
-                      this.divide(
-                          value,
-                          new PlayerCommand.State(
-                              entry.getValue().size(),
-                              entry.getValue().size(),
-                              entry.getValue().size(),
-                              entry.getValue().size(),
-                              entry.getValue().size(),
-                              entry.getValue().size())))
-                  .orElse(PlayerCommand.State.STOP)));
-    }
   }
 }
