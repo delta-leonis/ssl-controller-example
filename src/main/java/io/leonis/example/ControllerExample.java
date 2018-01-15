@@ -1,6 +1,7 @@
 package io.leonis.example;
 
 import com.google.common.collect.*;
+import io.leonis.ipc.CliSettings;
 import io.leonis.subra.game.data.Player.PlayerIdentity;
 import io.leonis.subra.game.data.*;
 import io.leonis.subra.ipc.network.StrategyMulticastSubscriber;
@@ -25,9 +26,6 @@ import reactor.core.publisher.Flux;
  * @author Jeroen de Jong
  */
 public class ControllerExample {
-  private static final Map<String, String> DEFAULTS = ImmutableMap.of(
-      "port", "1234",
-      "ip", "localhost");
 
   /**
    * Constructs a new ControllerExample which submits {@link io.leonis.subra.protocol.Robot generated
@@ -71,16 +69,7 @@ public class ControllerExample {
   }
 
   public static void main(final String[] args) throws IOException {
-    final Map<String, String> input = Stream.of(args)
-        .map(argument -> argument.split(":"))
-        .collect(Collectors.toMap(strings -> strings[0], strings -> strings[1]));
-
-    final Map<String, String> params = DEFAULTS.entrySet().stream()
-        .collect(Collectors.toMap(
-            Entry::getKey,
-            inputOrDefault ->
-                input.getOrDefault(inputOrDefault.getKey(), inputOrDefault.getValue())));
-
+    final Map<String, String> params = new CliSettings().apply(args);
     new ControllerExample(params.get("ip"), Integer.parseInt(params.get("port")));
   }
 
