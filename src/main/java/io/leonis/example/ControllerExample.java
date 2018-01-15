@@ -26,6 +26,10 @@ import reactor.core.publisher.Flux;
  */
 public class ControllerExample {
 
+  private final static Map<String, String> DEFAULTS = ImmutableMap.of(
+      "port", "10001",
+      "ip", "224.0.0.1");
+
   /**
    * Constructs a new ControllerExample which submits {@link io.leonis.subra.protocol.Robot generated
    * commands} to multicast on the supplied ip and port.
@@ -33,14 +37,11 @@ public class ControllerExample {
    * @param ip The IP of the multicast destination as a {@link String}
    * @param port The port of the multicast destination as an integer.
    */
-  public ControllerExample(final String ip, final int port) throws IOException {
-    // the mapping of controller number to player identity
-    final Map<JamepadControllerIdentity, Set<PlayerIdentity>> controllerMapping = ImmutableMap.of(
-        new JamepadControllerIdentity(1),
-        ImmutableSet.of(
-            new PlayerIdentity(1, TeamColor.BLUE),
-            new PlayerIdentity(2, TeamColor.BLUE)));
-
+  public ControllerExample(
+      final String ip,
+      final int port,
+      final Map<JamepadControllerIdentity, Set<PlayerIdentity>> controllerMapping
+  ) throws IOException {
     // the controller handler which parses the active controls
     final Function<JamepadController, PlayerCommand> handler = new JamepadControllerHandler();
 
@@ -68,7 +69,15 @@ public class ControllerExample {
   }
 
   public static void main(final String[] args) throws IOException {
-    final Map<String, String> params = new CliSettings().apply(args);
-    new ControllerExample(params.get("ip"), Integer.parseInt(params.get("port")));
+    final Map<String, String> params = new CliSettings(DEFAULTS).apply(args);
+
+    // the mapping of controller number to player identity
+    final Map<JamepadControllerIdentity, Set<PlayerIdentity>> controllerMapping = ImmutableMap.of(
+        new JamepadControllerIdentity(1),
+        ImmutableSet.of(
+            new PlayerIdentity(1, TeamColor.BLUE),
+            new PlayerIdentity(2, TeamColor.BLUE)));
+
+    new ControllerExample(params.get("ip"), Integer.parseInt(params.get("port")), controllerMapping);
   }
 }

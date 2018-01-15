@@ -22,9 +22,9 @@ import lombok.AllArgsConstructor;
 public final class ControllerStrategySupplier implements Strategy.Supplier, PlayerCommandRing {
 
   /**
-   * {@link Collection} of {@link PlayerCommand} mapped on the applicable {@link PlayerIdentity}.
+   * {@link List} of {@link PlayerCommand} mapped on the applicable {@link PlayerIdentity}.
    */
-  private final Map<PlayerIdentity, Collection<PlayerCommand>> map;
+  private final Map<PlayerIdentity, List<PlayerCommand>> map;
 
   @Override
   public Map<PlayerIdentity, PlayerCommand> getStrategy() {

@@ -23,12 +23,6 @@ public final class CliSettings implements Function<String[], Map<String, String>
    */
   private final Map<String, String> defaults;
 
-  public CliSettings() {
-    this(ImmutableMap.of(
-        "port", "10010",
-        "ip", "255.255.255.255"));
-  }
-
   /**
    * @param args Array of strings in {@code <key>:<value>}-format
    * @return The input as a map merged with the existing defaults.
