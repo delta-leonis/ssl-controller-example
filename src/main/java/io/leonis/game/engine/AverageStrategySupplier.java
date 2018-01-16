@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 
 /**
- * The Class ControllerStrategySupplier.
+ * The Class AverageStrategySupplier.
  *
  * Supplies a strategy based on a {@link Collection} of {@link PlayerCommand} mapped on
  * the applicable {@link PlayerIdentity}. It will average all fields of the {@link PlayerCommand}
@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
  * @author Jeroen de Jong
  */
 @AllArgsConstructor
-public final class ControllerStrategySupplier implements Strategy.Supplier, PlayerCommandRing {
+public final class AverageStrategySupplier implements Strategy.Supplier, PlayerCommandRing {
 
   /**
    * {@link List} of {@link PlayerCommand} mapped on the applicable {@link PlayerIdentity}.

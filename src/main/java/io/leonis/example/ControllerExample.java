@@ -1,7 +1,7 @@
 package io.leonis.example;
 
 import com.google.common.collect.*;
-import io.leonis.game.engine.ControllerStrategySupplier;
+import io.leonis.game.engine.AverageStrategySupplier;
 import io.leonis.ipc.CliSettings;
 import io.leonis.subra.game.data.Player.PlayerIdentity;
 import io.leonis.subra.game.data.*;
@@ -32,7 +32,7 @@ public class ControllerExample {
 
   /**
    * Constructs a new ControllerExample which submits {@link io.leonis.subra.protocol.Robot generated
-   * commands} to multicast on the supplied ip and port.
+   * commands} to multicast on the supplied IP and port.
    *
    * @param ip The IP of the multicast destination as a {@link String}
    * @param port The port of the multicast destination as an integer.
@@ -50,19 +50,24 @@ public class ControllerExample {
         .map(MappingSupplier::getAgentMapping)
         // for each controller,
         .map(controllers ->
+            // create a stream
             controllers.entrySet().stream()
                 .flatMap(mapping ->
                     mapping.getValue().stream()
-                        .map(identity -> new SimpleImmutableEntry<>(identity,
-                            handler.apply(mapping.getKey()))))
+                        .map(identity ->
+                            // of identities paired to commands
+                            new SimpleImmutableEntry<>(identity, handler.apply(mapping.getKey()))))
                 .collect(Collectors.groupingBy(Entry::getKey))
                 .entrySet().stream()
+                // and collect those pairs to a mapping of identities to lists of commands
                 .collect(Collectors.toMap(
                     Entry::getKey,
                     entry -> entry.getValue().stream()
                         .map(Entry::getValue)
                         .collect(Collectors.toList()))))
-        .map(ControllerStrategySupplier::new)
+        // compute the average command per identity and save it as a strategy
+        .map(AverageStrategySupplier::new)
+        // broadcast the strategy over multicast
         .subscribe(
             new StrategyMulticastSubscriber<>(
                 new MulticastSubscriber(InetAddress.getByName(ip), port)));
