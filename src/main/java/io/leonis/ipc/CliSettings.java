@@ -1,6 +1,5 @@
 package io.leonis.ipc;
 
-import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
