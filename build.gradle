@@ -5,7 +5,7 @@ apply plugin: 'java'
 group 'io.leonis'
 version '0.0.1'
 archivesBaseName = "subra-examples"
-rootProject.description = 'at the press of a button'
+rootProject.description = 'Reference implementation for several subra applications'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
