@@ -1,4 +1,4 @@
-# `SSL Controller Example`
+# `subra-examples`
 > at the press of a button
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e361a22754a4f749f44cf6eb5153c55)](https://www.codacy.com/app/delta-leonis/subra-examples?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=delta-leonis/subra-examples&amp;utm_campaign=Badge_Grade)
@@ -7,6 +7,24 @@
 You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
 /[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html))
 to run `subra-examples`.
+
+## Configuration
+
+Most examples accept arguments in the following format: `<property>:<value>`. For example, setting
+the IP would be `ip:123.123.123.123`.
+
+## Controller Example
+
+The class `ControllerExample` can be found in the example package. Currently the controller mapping
+is hardcoded in the `main`-method of the example, which binds robot 1 and 2 of the blue team to the
+first controller that is found.
+
+### Settings
+
+| Property | Description    | Default     |
+|--------- |--------------- |------------ |
+| `ip`     | Multicast IP   | `224.0.0.1` |
+| `port`   | Multicast port | `10001`     |
 
 ## Copyright
 
