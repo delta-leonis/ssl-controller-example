@@ -8,6 +8,18 @@ You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
 /[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html))
 to run `subra-examples`.
 
+## Documentation
+
+The javadoc for the current code on `master` can be found on https://delta-leonis.github.io/subra-examples/
+
+## Building
+
+Make sure you have `gradle>=v2.10` installed. Run the following to build the application:
+
+```
+gradle build
+```
+
 ## Configuration
 
 Most examples accept arguments in the following format: `<property>:<value>`. For example, setting
