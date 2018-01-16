@@ -1,19 +1,19 @@
 # `SSL Controller Example`
 > at the press of a button
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e361a22754a4f749f44cf6eb5153c55)](https://www.codacy.com/app/delta-leonis/ssl-controller-example?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=delta-leonis/ssl-controller-example&amp;utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/delta-leonis/ssl-controller-example.svg?style=svg)](https://circleci.com/gh/delta-leonis/ssl-controller-example)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e361a22754a4f749f44cf6eb5153c55)](https://www.codacy.com/app/delta-leonis/subra-examples?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=delta-leonis/subra-examples&amp;utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/delta-leonis/subra-examples.svg?style=svg)](https://circleci.com/gh/delta-leonis/subra-examples)
 
 You'll need at least Java 1.8 ([jre](https://www.java.com/download/)
 /[jdk](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html))
-to run `ssl-controller-example`.
+to run `subra-examples`.
 
 ## Copyright
 
 This project is licensed under the AGPL version 3 license (see LICENSE).
 
 ```
-ssl-controller-example - delta-leonis
+subra-examples - delta-leonis
 Copyright (C) 2017 Rimon Oz, Jeroen de Jong, Ryan Meulenkamp, Thomas Hakkers
 
 This program is free software: you can redistribute it and/or modify
