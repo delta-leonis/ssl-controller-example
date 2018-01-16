@@ -1,5 +1,5 @@
 # `subra-examples`
-> at the press of a button
+> Reference implementation for several subra applications 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2e361a22754a4f749f44cf6eb5153c55)](https://www.codacy.com/app/delta-leonis/subra-examples?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=delta-leonis/subra-examples&amp;utm_campaign=Badge_Grade)
 [![CircleCI](https://circleci.com/gh/delta-leonis/subra-examples.svg?style=svg)](https://circleci.com/gh/delta-leonis/subra-examples)
