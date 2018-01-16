@@ -55,7 +55,9 @@ public class InfluxDbExample {
                 .fields(measurements.getMeasurementsList().stream()
                     .collect(Collectors.toMap(
                         Measurements.Single::getLabel,
-                        Measurements.Single::getValue))))
+                        measurement ->
+                            measurement.getValue()
+                                * Math.pow(10, measurement.getTenFoldMultiplier())))))
         .map(Point.Builder::build)
         // and send all Points to influxdb
         .subscribe(new InfluxSubscriber(databaseAddress, databaseName));
