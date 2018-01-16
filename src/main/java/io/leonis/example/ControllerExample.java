@@ -34,8 +34,11 @@ public class ControllerExample {
    * Constructs a new ControllerExample which submits {@link io.leonis.subra.protocol.Robot generated
    * commands} to multicast on the supplied IP and port.
    *
-   * @param ip The IP of the multicast destination as a {@link String}
-   * @param port The port of the multicast destination as an integer.
+   * @param ip                The IP of the multicast destination as a {@link String}
+   * @param port              The port of the multicast destination as an integer.
+   * @param controllerMapping The mapping of {@link JamepadControllerIdentity} to the corresponding
+   *     set of {@link PlayerIdentity}.
+   * @throws IOException Thrown when the IP cannot be resolved.
    */
   public ControllerExample(
       final String ip,
@@ -83,6 +86,7 @@ public class ControllerExample {
             new PlayerIdentity(1, TeamColor.BLUE),
             new PlayerIdentity(2, TeamColor.BLUE)));
 
-    new ControllerExample(params.get("ip"), Integer.parseInt(params.get("port")), controllerMapping);
+    new ControllerExample(params.get("ip"), Integer.parseInt(params.get("port")),
+        controllerMapping);
   }
 }
