@@ -60,7 +60,7 @@ public class ControllerExample {
                         .map(identity ->
                             // of identities paired to commands
                             new SimpleImmutableEntry<>(identity, handler.apply(mapping.getKey()))))
-                // group the commands by pairs by identity
+                // group the pairs of identities and commands by identity
                 .collect(Collectors.groupingBy(Entry::getKey))
                 .entrySet().stream()
                 // compute the average command per identity
