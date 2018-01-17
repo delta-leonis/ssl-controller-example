@@ -41,16 +41,14 @@ public class InfluxDbExample {
   public InfluxDbExample(
       final int localUdpPort,
       final String databaseAddress,
-      final String databaseName,
-      final TeamColor teamColor
+      final String databaseName
   ) {
     // listen for packets locally
     Flux.from(new UDPPublisher(localUdpPort))
         // parse the packets as Robot.Measurements
-        .transform(new RobotMeasurementsDeducer(teamColor))
+        .transform(new RobotMeasurementsDeducer(TeamColor.NONE))
         .map(measurements ->
-            Point.measurement("Robot " + teamColor.name()
-                + "#" + measurements.getPlayerIdentity().getId())
+            Point.measurement("Robot #" + measurements.getPlayerIdentity().getId())
                 .fields(measurements.getMeasurements().entrySet().stream()
                     .collect(Collectors.toMap(Entry::getKey, Entry::getValue))))
         .map(Point.Builder::build)
@@ -63,7 +61,6 @@ public class InfluxDbExample {
     new InfluxDbExample(
         Integer.parseInt(params.get("local-port")),
         params.get("db-address"),
-        params.get("db-name"),
-        TeamColor.NONE);
+        params.get("db-name"));
   }
 }
