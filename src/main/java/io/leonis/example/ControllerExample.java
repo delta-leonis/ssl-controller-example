@@ -1,13 +1,13 @@
 package io.leonis.example;
 
 import com.google.common.collect.*;
-import io.leonis.game.engine.AverageStrategySupplier;
 import io.leonis.ipc.CliSettings;
 import io.leonis.subra.game.data.Player.PlayerIdentity;
 import io.leonis.subra.game.data.*;
-import io.leonis.subra.ipc.network.StrategyMulticastSubscriber;
 import io.leonis.subra.ipc.peripheral.*;
 import io.leonis.subra.ipc.peripheral.JamepadController.JamepadControllerIdentity;
+import io.leonis.subra.ipc.serialization.protobuf.*;
+import io.leonis.subra.math.AveragePlayerCommand;
 import io.leonis.zosma.ipc.ip.MulticastSubscriber;
 import io.leonis.zosma.ipc.peripheral.Controller.MappingSupplier;
 import java.io.IOException;
@@ -52,28 +52,29 @@ public class ControllerExample {
     Flux.from(new JamepadPublisher(controllerMapping))
         .map(MappingSupplier::getAgentMapping)
         // for each controller,
-        .map(controllers ->
+        .<Strategy.Supplier>map(controllers ->
             // create a stream
-            controllers.entrySet().stream()
+            () -> controllers.entrySet().stream()
                 .flatMap(mapping ->
                     mapping.getValue().stream()
                         .map(identity ->
                             // of identities paired to commands
                             new SimpleImmutableEntry<>(identity, handler.apply(mapping.getKey()))))
+                // group the commands by pairs by identity
                 .collect(Collectors.groupingBy(Entry::getKey))
                 .entrySet().stream()
-                // and collect those pairs to a mapping of identities to lists of commands
+                // compute the average command per identity
                 .collect(Collectors.toMap(
                     Entry::getKey,
-                    entry -> entry.getValue().stream()
+                    entry -> new AveragePlayerCommand(entry.getValue().stream()
                         .map(Entry::getValue)
-                        .collect(Collectors.toList()))))
-        // compute the average command per identity and save it as a strategy
-        .map(AverageStrategySupplier::new)
+                        .collect(Collectors.toList()).toArray(new PlayerCommand[0])))))
+        // convert the strategy to protobuf
+        .transform(new SSLCommandDeducer())
+        // convert the protobuf to datagrams
+        .transform(new DatagramDeducer<>())
         // broadcast the strategy over multicast
-        .subscribe(
-            new StrategyMulticastSubscriber<>(
-                new MulticastSubscriber(InetAddress.getByName(ip), port)));
+        .subscribe(new MulticastSubscriber(InetAddress.getByName(ip), port));
   }
 
   public static void main(final String[] args) throws IOException {
